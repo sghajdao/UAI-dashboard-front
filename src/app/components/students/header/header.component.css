@@ -1,0 +1,42 @@
+.header {
+    padding-top: 30px;
+    display: flex;
+}
+
+.card {
+    text-align: center;
+    width: 19.5rem;
+    height: 10rem;
+}
+
+.card-title {
+    padding-top: 30px;
+    color: rgb(28, 87, 36);
+}
+
+.card-text {
+    color: rgb(28, 87, 36);
+    font-size: smaller;
+}
+
+.progress {
+    height: 30px;
+}
+
+.progress {
+    border-radius: 0px;
+}
+
+.progress-bar {
+    background-color: rgba(128, 128, 128, 0.205);
+    
+    /* padding-left: 30px; */
+}
+
+.percentage {
+    position: absolute;
+    color: rgb(28, 87, 36);
+    font-size: medium;
+    width: 100%;
+    padding-top: 25px;
+}
