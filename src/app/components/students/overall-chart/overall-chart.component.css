@@ -1,0 +1,13 @@
+.overall {
+    padding-top: 20px;
+}
+
+#chart {
+    max-width: 650px;
+    margin: 5px auto;
+}
+
+.title {
+    color: rgb(28, 87, 36);
+    text-align: center;
+}

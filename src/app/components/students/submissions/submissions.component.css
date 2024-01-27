@@ -1,0 +1,9 @@
+.submissions {
+    padding-top: 20px;
+}
+
+#chart {
+    max-width: 443px;
+    margin: 35px auto;
+    padding: 0;
+}
