@@ -1,8 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexPlotOptions, ApexXAxis, ApexYAxis, ChartComponent } from 'ng-apexcharts';
-import { async } from 'rxjs';
 import { StudentsChart } from 'src/app/models/studentsChart';
-import { StudentsService } from 'src/app/services/sutdents.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -19,34 +17,17 @@ export type ChartOptions = {
   templateUrl: './overall-chart.component.html',
   styleUrls: ['./overall-chart.component.css']
 })
-export class OverallChartComponent implements OnInit {
+export class OverallChartComponent implements AfterViewInit {
   @ViewChild("chart") chart?: ChartComponent;
   public chartOptions?: Partial<ChartOptions>;
 
-  constructor(
-    private studentsService: StudentsService,
-  ) {
-    const storage = localStorage.getItem("chart")
-    if (storage) {
-      let data: StudentsChart = JSON.parse(storage)
-      if (data)
-        this.setChart(data)
-      else
-        this.err = true
-    }
-    else if (!storage || this.err) {
-      studentsService.getChartsData().subscribe({
-        next: data => {
-          this.setChart(data)
-          localStorage.setItem("chart", JSON.stringify(data))
-        }
-      })
-    }
-  }
+  @Input() data?: StudentsChart
 
-  err: boolean = false
+  constructor() {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    if (this.data)
+      this.setChart(this.data);
   }
 
   setChart(data: StudentsChart) {
@@ -67,7 +48,6 @@ export class OverallChartComponent implements OnInit {
       else if (score >=90)
         overalls[0]++;
     })
-    console.log(overalls)
     this.chartOptions = {
       series: [
         {

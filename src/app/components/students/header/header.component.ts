@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StudentsService } from '../../../services/sutdents.service';
 import { StudentsHeader } from 'src/app/models/studentsHeader';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private studentsService: StudentsService,
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit {
   percentageNoAct?: number
   fixed?: string
   err: boolean = false
+  subscriptions: Subscription[] = []
 
   ngOnInit(): void {
     const storage = localStorage.getItem("header")
@@ -31,7 +33,7 @@ export class HeaderComponent implements OnInit {
         this.err = true
     }
     else if (!storage || this.err) {
-      this.studentsService.getHeader().subscribe({
+      const sub = this.studentsService.getHeader().subscribe({
         next: data=> {
           this.headerData = data
           this.percentageScore = this.headerData.score_under_sixty * 100 / this.headerData.enrolled_students
@@ -39,6 +41,11 @@ export class HeaderComponent implements OnInit {
           localStorage.setItem("header", JSON.stringify(data));
         }
       })
+      this.subscriptions.push(sub);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub=> sub.unsubscribe())
   }
 }

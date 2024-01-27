@@ -1,12 +1,14 @@
 <div class="submissions container">
-    <div class="card">
+    <div class="card" *ngIf="chartOptions">
         <div class="card-body">
+            <h5 class="title">Student Overall Averages</h5>
             <div id="chart">
                 <apx-chart
                   [series]="chartOptions.series!"
                   [chart]="chartOptions.chart!"
                   [labels]="chartOptions.labels"
                   [responsive]="chartOptions.responsive!"
+                  [colors]="chartOptions.colors!"
                 ></apx-chart>
             </div>
         </div>

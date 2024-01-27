@@ -12,7 +12,7 @@
               <p class="card-text">Students with a Current Course Score < 60</p>
             </div>
             <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                <div class="percentage start-50 translate-middle">{{percentageScore?.toFixed(2)}}% {{headerData.enrolled_students}} Enrolled Students</div>
+                <div class="percentage start-50 translate-middle">{{percentageScore?.toFixed(2)}}% of {{headerData.enrolled_students}} Enrolled Students</div>
                 <div class="progress-bar overflow-visible" [style]="'width: '+percentageScore+'%'"></div>
             </div>
         </div>
