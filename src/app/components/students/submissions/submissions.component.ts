@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { ApexChart, ApexNonAxisChartSeries, ApexResponsive, ChartComponent } from 'ng-apexcharts';
-import { StudentsChart } from 'src/app/models/studentsChart';
+import { StudentsResponse } from 'src/app/models/studentsResponse';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -15,22 +15,38 @@ export type ChartOptions = {
   templateUrl: './submissions.component.html',
   styleUrls: ['./submissions.component.css']
 })
-export class SubmissionsComponent implements AfterViewInit {
+export class SubmissionsComponent implements OnChanges {
   @ViewChild("chart") chart?: ChartComponent;
   public chartOptions?: Partial<ChartOptions>;
 
-  @Input() data?: StudentsChart
+  @Input() data?: StudentsResponse[]
 
   constructor() {}
 
-  ngAfterViewInit(): void {
-    if (this.data)
-      this.setChart(this.data)
+  on_time: number = 0;
+  missing: number = 0;
+  late: number = 0;
+  execused: number = 0;
+
+  ngOnChanges(): void {
+    if (this.data) {
+      this.countSubmissions(this.data)
+      this.setChart()
+    }
   }
 
-  setChart(data: StudentsChart) {
+  countSubmissions(data: StudentsResponse[]) {
+    for (let index = 0; index < data.length; index++) {
+      this.on_time += data[index].on_time_submissions;
+      this.missing += data[index].missing_submissions;
+      this.late += data[index].late_submissions;
+      this.execused += data[index].execused_submissions;
+    }
+  }
+
+  setChart() {
     this.chartOptions = {
-      series: [data.submissions_on_time, data.missing_submissions, data.late_submissions, data.excused_submissions],
+      series: [this.on_time, this.missing, this.late, this.execused],
       chart: {
         type: "donut",
         height: 205

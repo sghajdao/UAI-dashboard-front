@@ -1,11 +1,12 @@
 <div style="padding-top: 20px;">
-    <app-header></app-header>
+    <app-header [response]="response" (finished)="finishedHeader($event)"></app-header>
     <div style="display: flex;">
-        <div style="width: 50%;">
-            <app-overall-chart [data]="chartData"></app-overall-chart>
+        <div style="width: 50%;" *ngIf="finished[0]">
+            <app-overall-chart [data]="response" (finish)="finishedOverall($event)"></app-overall-chart>
         </div>
-        <div style="width: 50%;">
-            <app-submissions [data]="chartData"></app-submissions>
+        <div style="width: 50%;" *ngIf="finished[1]">
+            <app-submissions [data]="response"></app-submissions>
         </div>
     </div>
+    <app-details [data]="response"></app-details>
 </div>

@@ -1,51 +1,48 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StudentsService } from '../../../services/sutdents.service';
-import { StudentsHeader } from 'src/app/models/studentsHeader';
-import { Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { StudentsResponse } from 'src/app/models/studentsResponse';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnChanges {
 
-  constructor(
-    private studentsService: StudentsService,
-  ) {}
+  @Input() response?: StudentsResponse[]
+  @Output() finished: EventEmitter<boolean> = new EventEmitter<boolean>()
 
-  headerData?: StudentsHeader
-  percentageScore?: number
-  percentageNoAct?: number
-  fixed?: string
-  err: boolean = false
-  subscriptions: Subscription[] = []
+  constructor() {}
 
-  ngOnInit(): void {
-    const storage = localStorage.getItem("header")
-    if (storage) {
-      this.headerData = JSON.parse(storage)
-      if (this.headerData) {
-        this.percentageScore = this.headerData.score_under_sixty * 100 / this.headerData.enrolled_students
-        this.percentageNoAct = this.headerData.no_activity_students * 100 / this.headerData.enrolled_students
-      }
-      else
-        this.err = true
-    }
-    else if (!storage || this.err) {
-      const sub = this.studentsService.getHeader().subscribe({
-        next: data=> {
-          this.headerData = data
-          this.percentageScore = this.headerData.score_under_sixty * 100 / this.headerData.enrolled_students
-          this.percentageNoAct = this.headerData.no_activity_students * 100 / this.headerData.enrolled_students
-          localStorage.setItem("header", JSON.stringify(data));
-        }
-      })
-      this.subscriptions.push(sub);
+  ngOnChanges(): void {
+    if (this.response) {
+      this.setHeader(this.response)
+      this.finished.emit(true)
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub=> sub.unsubscribe())
+  scoresUnderSixty: number = 0;
+  avgs: number = 0;
+  avgs_count: number = 0;
+  no_activities: number = 0;
+  since_last_attended: number = 0;
+  percentageScore: number = 0
+  percentageNoAct : number = 0
+
+  setHeader(data: StudentsResponse[]) {
+    for (let index = 0; index < data.length; index++) {
+      if (data[index].average_grade != null) {
+        if (data[index].average_grade < 60)
+          this.scoresUnderSixty++;
+        this.avgs += data[index].average_grade
+        this.avgs_count++;
+      }
+      if (data[index].no_activities)
+        this.no_activities++;
+      this.since_last_attended += data[index].since_last_attended;
+    }
+    this.avgs = this.avgs / this.avgs_count
+    this.since_last_attended = this.since_last_attended / data.length
+    this.percentageScore = this.scoresUnderSixty * 100 / data.length
+    this.percentageNoAct = this.no_activities * 100 / data.length
   }
 }

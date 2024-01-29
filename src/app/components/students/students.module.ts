@@ -7,13 +7,15 @@ import { HeaderComponent } from './header/header.component';
 import { OverallChartComponent } from './overall-chart/overall-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SubmissionsComponent } from './submissions/submissions.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
     StudentsComponent,
     HeaderComponent,
     OverallChartComponent,
-    SubmissionsComponent
+    SubmissionsComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,

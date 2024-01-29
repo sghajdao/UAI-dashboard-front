@@ -1,49 +1,49 @@
 <div class="header">
-    <div *ngIf="!headerData" class="text-success text-center container" style="padding-top: 20px;">
+    <div *ngIf="!response" class="text-success text-center container" style="padding-top: 20px;">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
     </div>
     
-    <div *ngIf="headerData" class="container">
+    <div *ngIf="response" class="container">
         <div class="card">
             <div class="card-body">
-              <h2 class="card-title">{{headerData.score_under_sixty}}</h2>
+              <h2 class="card-title">{{scoresUnderSixty}}</h2>
               <p class="card-text">Students with a Current Course Score < 60</p>
             </div>
             <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                <div class="percentage start-50 translate-middle">{{percentageScore?.toFixed(2)}}% of {{headerData.enrolled_students}} Enrolled Students</div>
+                <div class="percentage start-50 translate-middle">{{percentageScore.toFixed(2)}}% of {{response.length}} Enrolled Students</div>
                 <div class="progress-bar overflow-visible" [style]="'width: '+percentageScore+'%'"></div>
             </div>
         </div>
     </div>
 
-    <div *ngIf="headerData" class="container">
+    <div *ngIf="response" class="container">
         <div class="card">
             <div class="card-body">
-              <h2 class="card-title">{{headerData.average_grade.toFixed(2)}}</h2>
+              <h2 class="card-title">{{avgs.toFixed(2)}}</h2>
               <p class="card-text">Average Grade for Enrolled Students</p>
             </div>
         </div>
     </div>
 
-    <div *ngIf="headerData" class="container">
+    <div *ngIf="response" class="container">
         <div class="card">
             <div class="card-body">
-              <h2 class="card-title">{{headerData.no_activity_students}}</h2>
+              <h2 class="card-title">{{no_activities}}</h2>
               <p class="card-text">Students with No Activity in Last 30 Days</p>
             </div>
             <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                <div class="percentage start-50 translate-middle">{{percentageNoAct?.toFixed(2)}}% of {{headerData.enrolled_students}} Enrolled Students</div>
+                <div class="percentage start-50 translate-middle">{{percentageNoAct.toFixed(2)}}% of {{response.length}} Enrolled Students</div>
                 <div class="progress-bar overflow-visible" [style]="'width: '+percentageNoAct+'%'"></div>
             </div>
         </div>
     </div>
 
-    <div *ngIf="headerData" class="container">
+    <div *ngIf="response" class="container">
         <div class="card">
             <div class="card-body">
-              <h2 class="card-title">{{headerData.average_days}}</h2>
+              <h2 class="card-title">{{since_last_attended}}</h2>
               <p class="card-text">Average Days Since Last Course Interaction</p>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { StudentsChart } from 'src/app/models/studentsChart';
+import { StudentsResponse } from 'src/app/models/studentsResponse';
 import { StudentsService } from 'src/app/services/sutdents.service';
 
 @Component({
@@ -15,28 +15,36 @@ export class StudentsComponent implements OnInit, OnDestroy {
   ) {}
 
   err: boolean = false
-  chartData?: StudentsChart
+  response?: StudentsResponse[]
+  finished: boolean[] = [false, false];
   subscriptions: Subscription[] = []
 
   ngOnInit(): void {
-    const storage = localStorage.getItem("chart");
+    const storage = localStorage.getItem("data");
     if (storage) {
-      let data: StudentsChart = JSON.parse(storage)
-      if (data) {
-        this.chartData = data
-      }
+      let data: StudentsResponse[] = JSON.parse(storage)
+      if (data)
+        this.response = data
       else
         this.err = true
     }
     else if (!storage || this.err) {
-      const sub = this.studentsService.getChartsData().subscribe({
-        next: data => {
-          this.chartData = data
-          localStorage.setItem("chart", JSON.stringify(data))
+      const sub = this.studentsService.getStudentsData().subscribe({
+        next: resp => {
+          this.response = resp
+          localStorage.setItem("data", JSON.stringify(resp))
         }
       })
-      this.subscriptions.push(sub)
+      this.subscriptions.push(sub);
     }
+  }
+
+  finishedHeader(finish: boolean) {
+    this.finished[0] = finish;
+  }
+
+  finishedOverall(finish: boolean) {
+    this.finished[1] = finish
   }
 
   ngOnDestroy(): void {
