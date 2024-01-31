@@ -1,32 +1,32 @@
 <div class="details" *ngIf="data && data.length == 25">
     <div class="card" style="width: 100%;">
         <div class="card-body">
-          <h5 class="title">Card title</h5>
-          <table class="table caption-top table-striped">
+          <h5 class="title">Student Details</h5>
+          <table class="table caption-top table-striped table-bordered">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">name</th>
-                <th scope="col">User SIS ID</th>
-                <th scope="col">Courses Enrolled:</th>
-                <th scope="col">Courses With Grade:</th>
-                <th scope="col">Submissions on time compared to all</th>
-                <th scope="col">Avg Score</th>
-                <th scope="col">Courses with Below avg grade:</th>
-                <th scope="col">Days since last active:</th>
+                <th scope="col" style="text-align: center;">#</th>
+                <th scope="col" style="text-align: center;">name</th>
+                <th scope="col" style="text-align: center;">User SIS ID</th>
+                <th scope="col" style="text-align: center;">Courses Enrolled:</th>
+                <th scope="col" style="text-align: center;">Courses With Grade:</th>
+                <th scope="col" style="text-align: center;">Submissions on time compared to all</th>
+                <th scope="col" style="text-align: center;">Avg Score</th>
+                <th scope="col" style="text-align: center;">Courses with Below avg grade:</th>
+                <th scope="col" style="text-align: center;">Days since last active:</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of data; let i = index">
-                <th scope="row">{{i + 1}}</th>
-                <td>{{item.name}}</td>
-                <td>{{item.user_sis_id}}</td>
-                <td>{{item.courses_enrolled}}</td>
-                <td>{{item.courses_with_grade}}</td>
-                <td>{{item.on_time_submissions}} / {{item.execused_submissions + item.missing_submissions + item.late_submissions + item.execused_submissions + item.on_time_submissions}}</td>
-                <td>{{item.average_grade.toFixed(2)}}</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+                <th scope="row" style="text-align: center;">{{i + 1}}</th>
+                <td style="text-align: left;">{{item.name}}</td>
+                <td style="text-align: left;">{{item.user_sis_id}}</td>
+                <td style="text-align: right;">{{item.courses_enrolled}}</td>
+                <td style="text-align: right;">{{item.courses_with_grade}}</td>
+                <td style="text-align: right;">{{item.on_time_submissions}} / {{item.execused_submissions + item.missing_submissions + item.late_submissions + item.execused_submissions + item.on_time_submissions}}</td>
+                <td style="text-align: right;">{{item.average_grade.toFixed(2)}}</td>
+                <td style="text-align: right;">{{getCoursesUnderAvg(item.user_id)}}</td>
+                <td style="text-align: right;">{{item.since_last_activity}}</td>
               </tr>
             </tbody>
           </table>

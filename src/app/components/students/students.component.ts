@@ -17,6 +17,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
   err: boolean = false
   response?: StudentsResponse[]
   finished: boolean[] = [false, false];
+  average?: number
   subscriptions: Subscription[] = []
 
   ngOnInit(): void {
@@ -45,6 +46,10 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
   finishedOverall(finish: boolean) {
     this.finished[1] = finish
+  }
+
+  getAverage(avg: number) {
+    this.average = avg
   }
 
   ngOnDestroy(): void {

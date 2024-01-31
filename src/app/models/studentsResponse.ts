@@ -10,5 +10,6 @@ export interface StudentsResponse {
     late_submissions: number,
     execused_submissions: number,
     since_last_attended: number,
-    no_activities: boolean
+    since_last_activity: number,
+    courses_score: number[]
 }

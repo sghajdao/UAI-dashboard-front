@@ -1,5 +1,5 @@
 <div style="padding-top: 20px;">
-    <app-header [response]="response" (finished)="finishedHeader($event)"></app-header>
+    <app-header [response]="response" (finished)="finishedHeader($event)" (average)="getAverage($event)"></app-header>
     <div style="display: flex;">
         <div style="width: 50%;" *ngIf="finished[0]">
             <app-overall-chart [data]="response" (finish)="finishedOverall($event)"></app-overall-chart>
@@ -8,5 +8,5 @@
             <app-submissions [data]="response"></app-submissions>
         </div>
     </div>
-    <app-details [data]="response"></app-details>
+    <app-details [data]="response" [average]="average"></app-details>
 </div>
