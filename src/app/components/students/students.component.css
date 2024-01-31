@@ -1,0 +1,20 @@
+.charts {
+    display: flex;
+}
+
+.overall {
+    width: 50%;
+}
+
+.submissions {
+    width: 50%;
+}
+
+@media (max-width: 810px) {
+    .charts {
+        display: block;
+    }
+    .overall, .submissions {
+        width: 100%;
+    }
+}

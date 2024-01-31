@@ -1,5 +1,6 @@
 .overall {
     padding-top: 20px;
+    padding-right: 10px;
 }
 
 #chart {
@@ -10,4 +11,11 @@
 .title {
     color: rgb(28, 87, 36);
     text-align: center;
+}
+
+@media (max-width: 810px) {
+    .overall {
+        padding-top: 10px;
+        padding-right: 0px;
+    }
 }

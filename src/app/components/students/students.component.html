@@ -1,10 +1,10 @@
-<div style="padding-top: 20px;">
+<div style="padding: 10px;">
     <app-header [response]="response" (finished)="finishedHeader($event)" (average)="getAverage($event)"></app-header>
-    <div style="display: flex;">
-        <div style="width: 50%;" *ngIf="finished[0]">
+    <div class="charts">
+        <div class="overall" *ngIf="finished[0]">
             <app-overall-chart [data]="response" (finish)="finishedOverall($event)"></app-overall-chart>
         </div>
-        <div style="width: 50%;" *ngIf="finished[1]">
+        <div class="submissions" *ngIf="finished[1]">
             <app-submissions [data]="response"></app-submissions>
         </div>
     </div>
