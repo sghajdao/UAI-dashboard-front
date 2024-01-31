@@ -22,18 +22,23 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const storage = localStorage.getItem("data");
-    if (storage) {
+    const storageDate = localStorage.getItem("date");
+    if (storage && storageDate) {
+      let date: Date = JSON.parse(storageDate)
+      if (!date || new Date().getTime() - new Date(date).getTime() > 86400000)
+        this.err = true
       let data: StudentsResponse[] = JSON.parse(storage)
       if (data)
         this.response = data
       else
         this.err = true
     }
-    else if (!storage || this.err) {
+    if (!storage || !storageDate || this.err) {
       const sub = this.studentsService.getStudentsData().subscribe({
         next: resp => {
           this.response = resp
           localStorage.setItem("data", JSON.stringify(resp))
+          localStorage.setItem("date", JSON.stringify(new Date()))
         }
       })
       this.subscriptions.push(sub);

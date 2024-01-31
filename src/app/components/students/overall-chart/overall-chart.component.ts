@@ -22,7 +22,7 @@ export class OverallChartComponent implements OnChanges {
   public chartOptions?: Partial<ChartOptions>;
 
   @Input() data?: StudentsResponse[]
-  @Output() finish = new EventEmitter<boolean>()
+  @Output() finish: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   constructor() {}
 
