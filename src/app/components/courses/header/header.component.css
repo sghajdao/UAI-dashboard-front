@@ -1,0 +1,46 @@
+.header {
+    display: flex;
+}
+
+.squar {
+    padding-right: 10px;
+    width: 33.33%;
+}
+
+.last_squar {
+    width: 33.33%;
+}
+
+.card {
+    text-align: center;
+    width: 100%;
+}
+
+.card-title {
+    text-align: center;
+    padding-top: 30px;
+    color: rgba(0, 7, 112, 0.753);
+}
+
+.card-text {
+    text-align: center;
+    color: rgba(0, 7, 112, 0.753);
+    font-size: smaller;
+}
+
+.progress {
+    height: 30px;
+    border-radius: 0px;
+}
+
+.progress-bar {
+    background-color: rgba(128, 128, 128, 0.205);
+}
+
+.percentage {
+    position: absolute;
+    color: rgba(0, 7, 112, 0.753);
+    font-size: medium;
+    width: 100%;
+    padding-top: 25px;
+}
