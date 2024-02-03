@@ -1,3 +1,19 @@
 .courses {
     padding: 10px;
 }
+
+.line-charts {
+    display: flex;
+    width: 100%;
+    padding-top: 10px;
+}
+
+.content {
+    width: 50%;
+    padding-right: 5px;
+}
+
+.activities {
+    width: 50%;
+    padding-left: 5px;
+}

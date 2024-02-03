@@ -1,0 +1,22 @@
+<div style="width: 100%;">
+    <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Content Feature Use in Courses with Activity Over Time</h6>
+          <div id="chart" *ngIf="chartOptions">
+            <apx-chart
+              [series]="chartOptions.series!"
+              [chart]="chartOptions.chart!"
+              [xaxis]="chartOptions.xaxis!"
+              [stroke]="chartOptions.stroke!"
+              [colors]="chartOptions.colors!"
+              [dataLabels]="chartOptions.dataLabels!"
+              [legend]="chartOptions.legend!"
+              [markers]="chartOptions.markers!"
+              [grid]="chartOptions.grid!"
+              [yaxis]="chartOptions.yaxis!"
+              [title]="chartOptions.title!"
+            ></apx-chart>
+        </div>
+        </div>
+    </div>
+</div>

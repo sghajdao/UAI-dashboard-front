@@ -1,0 +1,21 @@
+<div style="padding-top: 10px;">
+    <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Feature Use in Courses with Activity</h6>
+          <div id="chart" *ngIf="chartOptions">
+            <apx-chart
+              [series]="chartOptions.series!"
+              [chart]="chartOptions.chart!"
+              [dataLabels]="chartOptions.dataLabels!"
+              [plotOptions]="chartOptions.plotOptions!"
+              [responsive]="chartOptions.responsive!"
+              [xaxis]="chartOptions.xaxis!"
+              [yaxis]="chartOptions.yaxis!"
+              [legend]="chartOptions.legend!"
+              [fill]="chartOptions.fill!"
+              [colors]="chartOptions.colors!"
+            ></apx-chart>
+        </div>
+        </div>
+    </div>
+</div>
