@@ -45,6 +45,7 @@ export class HeaderComponent implements OnChanges {
     this.since_last_attended = this.since_last_attended / data.length
     this.percentageScore = this.scoresUnderSixty * 100 / data.length
     this.percentageNoAct = this.no_activities * 100 / data.length
+    // this.no_activities = Intl.NumberFormat('en-US').format(this.no_activities) add comma after 3 numbers
     this.average.emit(this.avgs);
   }
 }
