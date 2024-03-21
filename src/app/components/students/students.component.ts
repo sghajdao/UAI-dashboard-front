@@ -16,7 +16,6 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
   err: boolean = false
   response?: StudentsResponse[]
-  finished: boolean[] = [false, false];
   average?: number
   subscriptions: Subscription[] = []
 
@@ -43,14 +42,6 @@ export class StudentsComponent implements OnInit, OnDestroy {
       })
       this.subscriptions.push(sub);
     }
-  }
-
-  finishedHeader(finish: boolean) {
-    this.finished[0] = finish;
-  }
-
-  finishedOverall(finish: boolean) {
-    this.finished[1] = finish
   }
 
   getAverage(avg: number) {

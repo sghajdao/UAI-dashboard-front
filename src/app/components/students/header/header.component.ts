@@ -9,7 +9,6 @@ import { StudentsResponse } from 'src/app/models/studentsResponse';
 export class HeaderComponent implements OnChanges {
 
   @Input() response?: StudentsResponse[]
-  @Output() finished: EventEmitter<boolean> = new EventEmitter<boolean>()
   @Output() average: EventEmitter<number> = new EventEmitter<number>()
 
   constructor() {}
@@ -17,7 +16,6 @@ export class HeaderComponent implements OnChanges {
   ngOnChanges(): void {
     if (this.response) {
       this.setHeader(this.response)
-      this.finished.emit(true)
     }
   }
 
@@ -30,18 +28,18 @@ export class HeaderComponent implements OnChanges {
   percentageNoAct : number = 0
 
   setHeader(data: StudentsResponse[]) {
-    for (let index = 0; index < data.length; index++) {
-      if (data[index].average_grade != null) {
-        if (data[index].average_grade < 60)
+    for (const student of data) {
+      if (student.average_grade != null) {
+        if (student.average_grade < 60)
           this.scoresUnderSixty++;
-        this.avgs += data[index].average_grade
+        this.avgs += student.average_grade
         this.avgs_count++;
       }
-      if (data[index].since_last_activity >= 30)
+      if (student.since_last_activity >= 30)
         this.no_activities++;
-      this.since_last_attended += data[index].since_last_attended;
+      this.since_last_attended += student.since_last_attended;
     }
-    this.avgs = this.avgs / this.avgs_count
+    this.avgs /= this.avgs_count
     this.since_last_attended = this.since_last_attended / data.length
     this.percentageScore = this.scoresUnderSixty * 100 / data.length
     this.percentageNoAct = this.no_activities * 100 / data.length

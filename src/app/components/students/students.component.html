@@ -5,12 +5,12 @@
 </div>
 
 <div style="padding: 10px;">
-    <app-header [response]="response" (finished)="finishedHeader($event)" (average)="getAverage($event)"></app-header>
+    <app-header [response]="response" (average)="getAverage($event)"></app-header>
     <div class="charts">
-        <div class="overall" *ngIf="finished[0]">
-            <app-overall-chart [data]="response" (finish)="finishedOverall($event)"></app-overall-chart>
+        <div class="overall">
+            <app-overall-chart [data]="response"></app-overall-chart>
         </div>
-        <div class="submissions" *ngIf="finished[1]">
+        <div class="submissions">
             <app-submissions [data]="response"></app-submissions>
         </div>
     </div>

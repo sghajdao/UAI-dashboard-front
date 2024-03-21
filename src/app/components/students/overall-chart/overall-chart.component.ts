@@ -22,14 +22,12 @@ export class OverallChartComponent implements OnChanges {
   public chartOptions?: Partial<ChartOptions>;
 
   @Input() data?: StudentsResponse[]
-  @Output() finish: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   constructor() {}
 
   ngOnChanges(): void {
     if (this.data) {
       this.setChart(this.data);
-      this.finish.emit(true)
     }
   }
 

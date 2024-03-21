@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'students',
     loadChildren:()=>import("./components/students/students.module").then(m=>m.StudentsModule)
+  },
+  {
+    path: 'admin',
+    loadChildren:()=>import("./components/admin-analytics/admin-analytics.module").then(m=>m.AdminAnalyticsModule)
   }
 ];
 
