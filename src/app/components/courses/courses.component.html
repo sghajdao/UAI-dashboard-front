@@ -1,12 +1,18 @@
-<div class="courses">
-    <app-header></app-header>
-    <app-courses-feature></app-courses-feature>
+<div *ngIf="!data" class="text-success position-absolute top-50 start-50 translate-middle">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<div *ngIf="data" class="courses">
+    <app-header [response]="data"></app-header>
+    <app-courses-feature [response]="data"></app-courses-feature>
     <div class="line-charts">
         <div class="content">
-            <app-content-feature></app-content-feature>
+            <app-content-feature [response]="data"></app-content-feature>
         </div>
         <div class="activities">
-            <app-activities-feature></app-activities-feature>
+            <app-activities-feature [response]="data"></app-activities-feature>
         </div>
     </div>
 </div>

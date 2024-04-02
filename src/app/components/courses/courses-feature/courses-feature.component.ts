@@ -1,5 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexPlotOptions, ApexResponsive, ApexXAxis, ApexYAxis, ChartComponent } from 'ng-apexcharts';
+import { CoursesResponse } from 'src/app/models/coursesResponse';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -19,11 +20,23 @@ export type ChartOptions = {
   templateUrl: './courses-feature.component.html',
   styleUrls: ['./courses-feature.component.css']
 })
-export class CoursesFeatureComponent {
+export class CoursesFeatureComponent implements OnChanges{
   @ViewChild("chart") chart?: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  public chartOptions?: Partial<ChartOptions>;
 
-  constructor() {
+  constructor() {}
+
+  @Input() response?: CoursesResponse[]
+
+  published: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  concluded: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.response)
+      this.setChart(this.response)
+  }
+
+  setChart(data: CoursesResponse[]) {
     this.chartOptions = {
       series: [
         {

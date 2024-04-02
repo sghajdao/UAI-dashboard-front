@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CoursesResponse } from '../models/coursesResponse';
 import { environment } from 'src/environments/environment';
-import { StudentsResponse } from '../models/studentsResponse';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentsService {
+export class CoursesService {
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getStudentsData() {
-    return this.http.get<StudentsResponse[]>(environment.studentsRequest + 'api/students/')
+  getCoursesData() {
+    return this.http.get<CoursesResponse[]>(environment.coursesRequest + 'api/courses/');
   }
 }

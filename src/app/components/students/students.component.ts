@@ -20,7 +20,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = []
 
   ngOnInit(): void {
-    const storage = localStorage.getItem("data");
+    const storage = localStorage.getItem("students");
     const storageDate = localStorage.getItem("date");
     if (storage && storageDate) {
       let date: Date = JSON.parse(storageDate)
@@ -36,7 +36,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
       const sub = this.studentsService.getStudentsData().subscribe({
         next: resp => {
           this.response = resp
-          localStorage.setItem("data", JSON.stringify(resp))
+          localStorage.setItem("students", JSON.stringify(resp))
           localStorage.setItem("date", JSON.stringify(new Date()))
         }
       })
