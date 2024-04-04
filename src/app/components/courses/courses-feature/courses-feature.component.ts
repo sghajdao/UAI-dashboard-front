@@ -36,16 +36,55 @@ export class CoursesFeatureComponent implements OnChanges{
       this.setChart(this.response)
   }
 
+  getFeatures(course: CoursesResponse, list: number[]) {
+    for (let feature of course.featurse) {
+      switch (feature) {
+        case "grades":
+          list[5]++;
+          break;
+        case "syllabus":
+          list[7]++;
+          break;
+        case "annoncements":
+          list[8]++;
+          break;
+        case "groups":
+          list[11]++;
+          break;
+        case "outcomes":
+          list[12]++;
+          break;
+        case "discussion":
+          list[1]++;
+          break;
+        case "files":
+          list[0]++;
+          break;
+      
+        default:
+          break;
+      }
+    }
+  }
+
   setChart(data: CoursesResponse[]) {
+    for (let course of data) {
+      if (course.status === "published")
+        this.getFeatures(course, this.published);
+      else
+        this.getFeatures(course, this.concluded)
+    }
     this.chartOptions = {
       series: [
         {
           name: "Published with Activity",
-          data: [13, 10, 7, 8, 13, 3, 5, 4, 3, 2, 1, 0, 0, 0, 0]
+          data: this.published
+          // data: [13, 10, 7, 8, 13, 3, 5, 4, 3, 2, 1, 0, 0, 0, 0]
         },
         {
           name: "Concluded with Activity",
-          data: [44, 55, 41, 67, 22, 43, 30, 25, 20, 10, 7, 5, 4, 0, 0]
+          data: this.concluded
+          // data: [44, 55, 41, 67, 22, 43, 30, 25, 20, 10, 7, 5, 4, 0, 0]
         },
       ],
       chart: {

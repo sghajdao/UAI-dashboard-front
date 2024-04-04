@@ -9,4 +9,5 @@ export interface CoursesResponse {
     all_students: number,
     inactive_students: number, // inactive students last 7 days
     featurse: string[],
+    scores: number[],
 }

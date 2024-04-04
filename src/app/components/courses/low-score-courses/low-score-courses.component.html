@@ -1,0 +1,35 @@
+<div class="details" *ngIf="columns">
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="title">Courses With Average Scores Below 70</h5>
+          <table class="table caption-top table-striped table-bordered">
+            <thead>
+              <tr>
+                <th scope="col" style="text-align: center;">#</th>
+                <th scope="col" style="text-align: center;">Course Name</th>
+                <th scope="col" style="text-align: center;">Teacher(s)</th>
+                <th scope="col" style="text-align: center;">Avg Score</th>
+                <th scope="col" style="text-align: center;">Scores Below 70</th>
+                <th scope="col" style="text-align: center;">Percentage</th>
+                <th scope="col" style="text-align: center;">Global Course ID</th>
+                <th scope="col" style="text-align: center;">Status</th>
+                <th scope="col" style="text-align: center;">All Students with Grades</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of columns; let i = index">
+                <th scope="row" style="text-align: center;">{{i + 1}}</th>
+                <td style="text-align: left;">{{item.name}}</td>
+                <td style="text-align: left;">{{item.teacher}}</td>
+                <td style="text-align: left;">{{item.average.toFixed(2)}}</td>
+                <td style="text-align: right;">{{getScoresBelow70(item)}}</td>
+                <td style="text-align: right;">{{(getScoresBelow70(item) * 100 / item.all_students).toFixed(2)}}%</td>
+                <td style="text-align: right;">{{item.id}}</td>
+                <td style="text-align: right;">{{item.status}} with Activity</td>
+                <td style="text-align: right;">{{item.students_with_garde}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+</div>

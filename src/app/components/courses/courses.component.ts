@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CoursesResponse } from 'src/app/models/coursesResponse';
 import { CoursesService } from 'src/app/services/courses.service';
 
@@ -7,7 +8,7 @@ import { CoursesService } from 'src/app/services/courses.service';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
 
   constructor(
     private coursesService: CoursesService,
@@ -15,6 +16,7 @@ export class CoursesComponent implements OnInit {
 
   data?: CoursesResponse[]
   err: boolean = false
+  subscriptions: Subscription[] = []
 
   ngOnInit(): void {
     const storage = localStorage.getItem("courses");
@@ -30,13 +32,18 @@ export class CoursesComponent implements OnInit {
         this.err = true
     }
     if (!storage || !storageDate || this.err) {
-      this.coursesService.getCoursesData().subscribe({
+      const sub = this.coursesService.getCoursesData().subscribe({
         next: data => {
           this.data = data
           localStorage.setItem("courses", JSON.stringify(data))
           localStorage.setItem("date", JSON.stringify(new Date()))
         }
       })
+      this.subscriptions.push(sub);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }
