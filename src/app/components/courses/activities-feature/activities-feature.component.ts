@@ -30,9 +30,10 @@ export class ActivitiesFeatureComponent implements OnChanges {
 
   @Input() response?: CoursesResponse[]
 
-  discussions: number[] = [0, 0, 0, 0, 0, 0, 0];
-  grades: number[] = [0, 0, 0, 0, 0, 0, 0];
-  outcomes: number[] = [0, 0, 0, 0, 0, 0, 0];
+  discussions: number[] = Array(24).fill(0);
+  grades: number[] = Array(24).fill(0);
+  outcomes: number[] = Array(24).fill(0);
+  assignments: number[] = Array(24).fill(0);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.response)
@@ -40,14 +41,36 @@ export class ActivitiesFeatureComponent implements OnChanges {
   }
 
   setChart(data: CoursesResponse[]) {
+    const numDataPoints = Math.max(this.discussions.length, this.grades.length, this.outcomes.length, this.assignments.length);
+    const categories: number[] = [];
+    const currentDate = new Date();
+    for (let i = 0; i < numDataPoints; i++) {
+        const monthIndex = Math.floor(i * (24 / numDataPoints));
+        const monthDate = new Date(currentDate.getFullYear() - 1, monthIndex, 1); // Set the date to the 1st of the month
+        categories.push(monthDate.getTime()); // Convert date to timestamp
+    }
     for (let course of data) {
-      for (let index = 0; index < 7; index++) {
-        if (course.featurse.includes("discussions") && new Date(course.created_at).getMonth() === index + 1)
-          this.discussions[index]++;
-        if (course.featurse.includes("grades") && new Date(course.created_at).getMonth() === index + 1)
-          this.grades[index]++;
-        if (course.featurse.includes("outcomes") && new Date(course.created_at).getMonth() === index + 1)
-          this.outcomes[index]++;
+      for (let index = 0; index < 24; index++) {
+        if (index < 12) {
+          if (course.featurse.includes("discussions") && new Date(course.created_at).getMonth() === index && new Date(course.created_at).getFullYear() === new Date().getFullYear() - 1)
+            this.discussions[index]++;
+          if (course.featurse.includes("grades") && new Date(course.created_at).getMonth() === index && new Date(course.created_at).getFullYear() === new Date().getFullYear() - 1)
+            this.grades[index]++;
+          if (course.featurse.includes("outcomes") && new Date(course.created_at).getMonth() === index && new Date(course.created_at).getFullYear() === new Date().getFullYear() - 1)
+            this.outcomes[index]++;
+          if (course.featurse.includes("assignments") && new Date(course.created_at).getMonth() === index && new Date(course.created_at).getFullYear() === new Date().getFullYear() - 1)
+            this.assignments[index]++;
+        }
+        else {
+          if (course.featurse.includes("discussions") && new Date(course.created_at).getMonth() === index - 12 && new Date(course.created_at).getFullYear() === new Date().getFullYear())
+            this.discussions[index]++;
+          if (course.featurse.includes("grades") && new Date(course.created_at).getMonth() === index - 12 && new Date(course.created_at).getFullYear() === new Date().getFullYear())
+            this.grades[index]++;
+          if (course.featurse.includes("outcomes") && new Date(course.created_at).getMonth() === index - 12 && new Date(course.created_at).getFullYear() === new Date().getFullYear())
+            this.outcomes[index]++;
+          if (course.featurse.includes("assignments") && new Date(course.created_at).getMonth() === index - 12 && new Date(course.created_at).getFullYear() === new Date().getFullYear())
+            this.assignments[index]++;
+        }
       }
     }
     this.chartOptions = {
@@ -63,6 +86,10 @@ export class ActivitiesFeatureComponent implements OnChanges {
         {
           name: "Outcomes",
           data: this.outcomes
+        },
+        {
+          name: "Assignments",
+          data: this.assignments
         }
       ],
       chart: {
@@ -80,7 +107,7 @@ export class ActivitiesFeatureComponent implements OnChanges {
           show: false
         }
       },
-      colors: ["#77B6EA", "#545454", "#c79cff"],
+      colors: ["#77B6EA", "#545454", "#3b963e", "#b867b7"],
       dataLabels: {
         enabled: true
       },
@@ -92,16 +119,17 @@ export class ActivitiesFeatureComponent implements OnChanges {
         row: {
           colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
           opacity: 0.5
-        }
+        },
       },
       markers: {
         size: 1
       },
       xaxis: {
-        categories: ["Jan'22", "Feb'22", "Mar'22", "Apr'22", "May'22", "Jun'22", "Jul'22"],
+        categories: categories,
         title: {
           text: "Date"
-        }
+        },
+        type: "datetime"
       },
       yaxis: {
         title: {

@@ -60,6 +60,18 @@ export class CoursesFeatureComponent implements OnChanges{
         case "files":
           list[0]++;
           break;
+        case "pages":
+          list[2]++;
+          break;
+        case "assignments":
+          list[4]++;
+          break;
+        case "modules":
+          list[6]++;
+          break;
+        case "conferences":
+          list[13]++;
+          break;
       
         default:
           break;

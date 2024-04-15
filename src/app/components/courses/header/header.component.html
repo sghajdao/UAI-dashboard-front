@@ -6,8 +6,8 @@
               <p class="card-text">Courses Published or Concluded with Activity</p>
             </div>
             <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                <div class="percentage start-50 translate-middle">{{((published + concluded) * 100 / response.length).toFixed(2)}}% of {{response.length}} Courses</div>
-                <div class="progress-bar overflow-visible" [style]="'width: ' + (published + concluded) * 100 / response.length + '%'"></div>
+                <div class="percentage start-50 translate-middle">{{((published + concluded) * 100 / allCourses).toFixed(2)}}% of {{allCourses}} Courses</div>
+                <div class="progress-bar overflow-visible" [style]="'width: ' + (published + concluded) * 100 / allCourses + '%'"></div>
             </div>
         </div>
     </div>

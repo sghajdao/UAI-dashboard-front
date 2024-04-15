@@ -15,6 +15,7 @@ export class HeaderComponent implements OnChanges{
   published: number = 0;
   concluded: number = 0;
   averages: number = 0;
+  allCourses: number = 0;
   coursesWithNoActivity: number = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnChanges{
 
   setheader(data: CoursesResponse[]) {
     for (let course of data) {
+      this.allCourses = course.coursesNumber
       if (course.status === 'published')
         this.published++;
       else if (course.status === 'concluded')

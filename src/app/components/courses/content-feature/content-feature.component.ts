@@ -29,8 +29,10 @@ export class ContentFeatureComponent implements OnChanges{
 
   @Input() response?: CoursesResponse[]
 
-  files: number[] = [0, 0, 0, 0, 0, 0, 0];
-  syllabus: number[] = [0, 0, 0, 0, 0, 0, 0];
+  files: number[] = Array(24).fill(0);
+  syllabus: number[] = Array(24).fill(0);
+  modules: number[] = Array(24).fill(0);
+  pages: number[] = Array(24).fill(0);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.response)
@@ -38,12 +40,40 @@ export class ContentFeatureComponent implements OnChanges{
   }
 
   setChart(data: CoursesResponse[]) {
+    const saad = data.filter(c => new Date(c.created_at).getFullYear() === 2023)
+    console.log(saad.length)
+    const numDataPoints = Math.max(this.files.length, this.syllabus.length, this.modules.length, this.pages.length);
+    const categories: number[] = [];
+    const currentDate = new Date();
+    for (let i = 0; i < numDataPoints; i++) {
+        const monthIndex = Math.floor(i * (24 / numDataPoints));
+        const monthDate = new Date(currentDate.getFullYear() - 1, monthIndex, 1); // Set the date to the 1st of the month
+        categories.push(monthDate.getTime()); // Convert date to timestamp
+    }
     for (let course of data) {
-      for (let index = 0; index < 7; index++) {
-        if (course.featurse.includes("files") && new Date(course.created_at).getMonth() === index + 1)
-          this.files[index]++;
-        if (course.featurse.includes("syllabus") && new Date(course.created_at).getMonth() === index + 1)
-          this.syllabus[index]++;
+      for (let index = 0; index < 24; index++) {
+        if (index < 12) {
+          if (course.featurse.includes("files") && new Date(course.created_at).getMonth() === index && new Date(course.created_at).getFullYear() === new Date().getFullYear() - 1)
+            this.files[index]++;
+          if (course.featurse.includes("syllabus") && new Date(course.created_at).getMonth() === index && new Date(course.created_at).getFullYear() === new Date().getFullYear() - 1)
+            this.syllabus[index]++;
+          if (course.featurse.includes("modules") && new Date(course.created_at).getMonth() === index && new Date(course.created_at).getFullYear() === new Date().getFullYear() - 1)
+            this.modules[index]++;
+          if (course.featurse.includes("pages") && new Date(course.created_at).getMonth() === index && new Date(course.created_at).getFullYear() === new Date().getFullYear() - 1) {
+            this.pages[index]++;
+          }
+        }
+        else {
+          if (course.featurse.includes("files") && new Date(course.created_at).getMonth() === index - 12 && new Date(course.created_at).getFullYear() === new Date().getFullYear())
+            this.files[index]++;
+          if (course.featurse.includes("syllabus") && new Date(course.created_at).getMonth() === index -12 && new Date(course.created_at).getFullYear() === new Date().getFullYear())
+            this.syllabus[index]++;
+          if (course.featurse.includes("modules") && new Date(course.created_at).getMonth() === index -12 && new Date(course.created_at).getFullYear() === new Date().getFullYear())
+            this.modules[index]++;
+          if (course.featurse.includes("pages") && new Date(course.created_at).getMonth() === index -12 && new Date(course.created_at).getFullYear() === new Date().getFullYear()) {
+            this.pages[index]++;
+          }
+        }
       }
     }
     this.chartOptions = {
@@ -55,6 +85,14 @@ export class ContentFeatureComponent implements OnChanges{
         {
           name: "Syllabus",
           data: this.syllabus
+        },
+        {
+          name: "pages",
+          data: this.pages
+        },
+        {
+          name: "modules",
+          data: this.modules
         }
       ],
       chart: {
@@ -72,7 +110,7 @@ export class ContentFeatureComponent implements OnChanges{
           show: false
         }
       },
-      colors: ["#77B6EA", "#545454"],
+      colors: ["#77B6EA", "#545454", "#3b963e", "#b867b7"],
       dataLabels: {
         enabled: true
       },
@@ -90,10 +128,11 @@ export class ContentFeatureComponent implements OnChanges{
         size: 1
       },
       xaxis: {
-        categories: ["Jan'22", "Feb'22", "Mar'22", "Apr'22", "May'22", "Jun'22", "Jul'22"],
+        categories: categories,
         title: {
           text: "Date"
-        }
+        },
+        type: "datetime"
       },
       yaxis: {
         title: {
