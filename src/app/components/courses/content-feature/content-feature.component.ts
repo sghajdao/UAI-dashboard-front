@@ -40,8 +40,6 @@ export class ContentFeatureComponent implements OnChanges{
   }
 
   setChart(data: CoursesResponse[]) {
-    const saad = data.filter(c => new Date(c.created_at).getFullYear() === 2023)
-    console.log(saad.length)
     const numDataPoints = Math.max(this.files.length, this.syllabus.length, this.modules.length, this.pages.length);
     const categories: number[] = [];
     const currentDate = new Date();
