@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 
@@ -7,19 +7,24 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'front';
 
   constructor(
     private router: Router
   ) {}
 
+  ngOnInit(): void {
+    this.toCourses({index: 0} as MatTabChangeEvent)
+  }
+
+  selectedTabIndex: number = 0; 
   toCourses(event: MatTabChangeEvent) {
-    if (event.tab.textLabel === 'Students')
+    if (event.index === 0)
       this.router.navigateByUrl('/')
-    else if (event.tab.textLabel === 'Courses')
+    else if (event.index === 1)
       this.router.navigateByUrl('/courses')
-    else if (event.tab.textLabel === 'Admin')
+    else if (event.index === 2)
       this.router.navigateByUrl('/admin')
   }
 }

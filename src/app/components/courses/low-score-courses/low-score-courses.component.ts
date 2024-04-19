@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, HostListener, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CoursesResponse } from 'src/app/models/coursesResponse';
 
 @Component({
@@ -21,7 +21,7 @@ export class LowScoreCoursesComponent implements OnChanges {
   setColumns(data: CoursesResponse[]) {
     this.columns = data.filter(item => item.students_with_garde != 0 && item.status != null)
     this.columns = this.columns.sort((a, b) => a.average - b.average)
-    this.columns = this.columns.slice(0, 10)
+    // this.columns = this.columns.slice(0, 40)
   }
 
   getScoresBelow70(course: CoursesResponse) {
