@@ -1,6 +1,6 @@
 <div class="details" *ngIf="columns">
     <div class="card" style="width: 100%;">
-        <div class="card-body">
+        <div class="card-body" (scroll)="onScroll($event)">
           <h5 class="title">Courses With Average Scores Below 70</h5>
           <table class="table caption-top table-striped table-bordered">
             <thead>
@@ -17,7 +17,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of columns; let i = index">
+              <tr *ngFor="let item of actualColumns; let i = index">
                 <th scope="row" style="text-align: center;">{{i + 1}}</th>
                 <td style="text-align: left;">{{item.name}}</td>
                 <td style="text-align: left;">{{item.teacher}}</td>

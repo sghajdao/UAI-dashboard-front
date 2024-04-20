@@ -12,6 +12,7 @@ export class LowActivityCoursesComponent implements OnChanges {
 
   @Input() response?: CoursesResponse[]
   columns?: CoursesResponse[]
+  actualColumns?: CoursesResponse[]
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.response)
@@ -21,6 +22,15 @@ export class LowActivityCoursesComponent implements OnChanges {
   setColumns(data: CoursesResponse[]) {
     this.columns = data.filter(item => item.students_with_garde != 0 && item.status != null)
     this.columns = this.columns.sort((a, b) => (b.inactive_students * 100 / b.all_students) - (a.inactive_students * 100 / a.all_students))
-    this.columns = this.columns.slice(0, 10)
+    this.actualColumns = this.columns.slice(0, 20)
+  }
+
+  start: number = 20
+  onScroll(event: any) {
+    const bottomPosition = event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight;
+    if (bottomPosition && this.columns) {
+      this.actualColumns = this.actualColumns?.concat(this.columns.slice(this.start, this.start + 20))
+      this.start += 20
+    }
   }
 }

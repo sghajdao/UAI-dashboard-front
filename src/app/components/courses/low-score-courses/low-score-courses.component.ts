@@ -12,6 +12,7 @@ export class LowScoreCoursesComponent implements OnChanges {
 
   @Input() response?: CoursesResponse[]
   columns?: CoursesResponse[]
+  actualColumns?: CoursesResponse[]
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.response)
@@ -21,7 +22,7 @@ export class LowScoreCoursesComponent implements OnChanges {
   setColumns(data: CoursesResponse[]) {
     this.columns = data.filter(item => item.students_with_garde != 0 && item.status != null)
     this.columns = this.columns.sort((a, b) => a.average - b.average)
-    // this.columns = this.columns.slice(0, 40)
+    this.actualColumns = this.columns.slice(0, 20)
   }
 
   getScoresBelow70(course: CoursesResponse) {
@@ -31,5 +32,14 @@ export class LowScoreCoursesComponent implements OnChanges {
         count++;
     }
     return count;
+  }
+
+  start: number = 20
+  onScroll(event: any) {
+    const bottomPosition = event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight;
+    if (bottomPosition && this.columns) {
+      this.actualColumns = this.actualColumns?.concat(this.columns.slice(this.start, this.start + 20))
+      this.start += 20
+    }
   }
 }

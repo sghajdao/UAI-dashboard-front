@@ -10,6 +10,7 @@ import { ContentFeatureComponent } from './content-feature/content-feature.compo
 import { ActivitiesFeatureComponent } from './activities-feature/activities-feature.component';
 import { LowScoreCoursesComponent } from './low-score-courses/low-score-courses.component';
 import { LowActivityCoursesComponent } from './low-activity-courses/low-activity-courses.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -20,12 +21,13 @@ import { LowActivityCoursesComponent } from './low-activity-courses/low-activity
     ContentFeatureComponent,
     ActivitiesFeatureComponent,
     LowScoreCoursesComponent,
-    LowActivityCoursesComponent
+    LowActivityCoursesComponent,
   ],
   imports: [
     CommonModule,
     CoursesRoutingModule,
     NgApexchartsModule,
+    InfiniteScrollModule,
   ]
 })
 export class CoursesModule { }
