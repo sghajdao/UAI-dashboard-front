@@ -8,6 +8,7 @@ import { OverallChartComponent } from './overall-chart/overall-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SubmissionsComponent } from './submissions/submissions.component';
 import { DetailsComponent } from './details/details.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { DetailsComponent } from './details/details.component';
   imports: [
     CommonModule,
     StudentsRoutingModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class StudentsModule { }

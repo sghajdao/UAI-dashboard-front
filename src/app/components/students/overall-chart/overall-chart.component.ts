@@ -26,26 +26,25 @@ export class OverallChartComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges(): void {
-    if (this.data) {
+    if (this.data)
       this.setChart(this.data);
-    }
   }
 
   setChart(data: StudentsResponse[]) {
     let overalls: number[] = [0, 0, 0, 0, 0, 0, 0];
     for (let index = 0; index < data.length; index++) {
       if (data[index].average_grade != null) {
-        if (data[index].average_grade < 0)
+        if (data[index].average_grade <= 0)
           overalls[6]++;
-        else if (data[index].average_grade <= 49)
+        else if (data[index].average_grade < 50)
           overalls[5]++;
-        else if (data[index].average_grade <=59)
+        else if (data[index].average_grade < 60)
           overalls[4]++;
-        else if (data[index].average_grade <=69)
+        else if (data[index].average_grade < 70)
           overalls[3]++;
-        else if (data[index].average_grade <=79)
+        else if (data[index].average_grade < 80)
           overalls[2]++;
-        else if (data[index].average_grade <=89)
+        else if (data[index].average_grade < 90)
           overalls[1]++;
         else if (data[index].average_grade >=90)
           overalls[0]++;
