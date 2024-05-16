@@ -2,7 +2,7 @@ export interface CoursesResponse {
     id: number,
     name: string,
     created_at: Date,
-    teacher: string,
+    teachers: string[],
     status: string,
     average: number,
     students_with_garde: number,

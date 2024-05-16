@@ -21,7 +21,13 @@
                 <tr *ngFor="let item of actualColumns; let i = index">
                   <th scope="row" style="text-align: center;">{{i + 1}}</th>
                   <td style="text-align: left;">{{item.name}}</td>
-                  <td style="text-align: left;">{{item.teacher}}</td>
+                  <td style="text-align: left;">
+                    <ul *ngFor="let teacher of item.teachers">
+                      <li>
+                        {{teacher}}
+                      </li>
+                    </ul>
+                  </td>
                   <td style="text-align: left;">{{item.average.toFixed(2)}}</td>
                   <td style="text-align: right;">{{getScoresBelow70(item)}}</td>
                   <td style="text-align: right;">{{(getScoresBelow70(item) * 100 / item.all_students).toFixed(2)}}%</td>

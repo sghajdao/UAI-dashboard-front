@@ -1,4 +1,4 @@
 export const environment = {
-    studentsRequest: 'http://localhost:9090/',
-    coursesRequest: 'http://localhost:9191/'
+    studentsRequest: 'http://10.0.0.63:9090/',
+    coursesRequest: 'http://10.0.0.63:9191/'
 };

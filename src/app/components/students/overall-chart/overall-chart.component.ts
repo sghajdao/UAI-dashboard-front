@@ -33,7 +33,7 @@ export class OverallChartComponent implements OnChanges {
   setChart(data: StudentsResponse[]) {
     let overalls: number[] = [0, 0, 0, 0, 0, 0, 0];
     for (let index = 0; index < data.length; index++) {
-      if (data[index].average_grade != null) {
+      if (data[index].average_grade != null && data[index].average_grade != -1) {
         if (data[index].average_grade <= 0)
           overalls[6]++;
         else if (data[index].average_grade < 50)

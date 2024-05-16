@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentsModule } from './components/students/students.module';
 import { CoursesModule } from './components/courses/courses.module';
-import { AdminAnalyticsModule } from './components/admin-analytics/admin-analytics.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -20,7 +19,6 @@ import { MatTabsModule } from '@angular/material/tabs';
     HttpClientModule,
     StudentsModule,
     CoursesModule,
-    AdminAnalyticsModule,
     BrowserAnimationsModule,
     MatTabsModule
   ],
