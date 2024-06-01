@@ -10,6 +10,12 @@
     width: 50%;
 }
 
+.filter {
+    position: fixed;
+    left: 5px;
+    top: 60px;
+}
+
 @media (max-width: 810px) {
     .charts {
         display: block;

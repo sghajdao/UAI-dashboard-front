@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { Subscription, take } from 'rxjs';
 import { StudentsResponse } from 'src/app/models/studentsResponse';
 import { StudentsService } from 'src/app/services/sutdents.service';
+import { FilterByYearComponent } from '../modals/filter-by-year/filter-by-year.component';
 
 @Component({
   selector: 'app-students',
@@ -11,7 +13,8 @@ import { StudentsService } from 'src/app/services/sutdents.service';
 export class StudentsComponent implements OnInit, OnDestroy {
 
   constructor(
-    private studentsService: StudentsService
+    private studentsService: StudentsService,
+    private _bottomSheet: MatBottomSheet
   ) {}
 
   err: boolean = false
@@ -46,6 +49,13 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
   getAverage(avg: number) {
     this.average = avg
+  }
+
+  openBottomSheet(): void {
+    this._bottomSheet.open(FilterByYearComponent);
+    // this.studentsService.collegeYear$.subscribe(data=> {
+    //   this.response = this.response?.filter(item => item.)
+    // })
   }
 
   ngOnDestroy(): void {

@@ -8,6 +8,7 @@ import { StudentsModule } from './components/students/students.module';
 import { CoursesModule } from './components/courses/courses.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ModalsModule } from './components/modals/modals.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     StudentsModule,
     CoursesModule,
     BrowserAnimationsModule,
-    MatTabsModule
+    MatTabsModule,
+    ModalsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

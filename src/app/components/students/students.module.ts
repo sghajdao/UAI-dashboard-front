@@ -9,6 +9,11 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { SubmissionsComponent } from './submissions/submissions.component';
 import { DetailsComponent } from './details/details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgApexchartsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatButtonModule, MatBottomSheetModule,
+    MatDividerModule, MatIconModule,
+    MatTooltipModule
   ]
 })
 export class StudentsModule { }
