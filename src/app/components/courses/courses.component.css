@@ -18,6 +18,12 @@
     padding-left: 5px;
 }
 
+.filter {
+    position: fixed;
+    left: 5px;
+    top: 60px;
+}
+
 @media (max-width: 900px) {
     .line-charts {
         display: block;

@@ -36,6 +36,10 @@ export class SubmissionsComponent implements OnChanges {
   }
 
   countSubmissions(data: StudentsResponse[]) {
+    this.on_time = 0
+    this.missing = 0
+    this.late = 0
+    this.execused = 0
     for (let index = 0; index < data.length; index++) {
       this.on_time += data[index].on_time_submissions;
       this.missing += data[index].missing_submissions;

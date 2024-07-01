@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatButtonModule, MatBottomSheetModule,
     MatDividerModule, MatIconModule,
-    MatTooltipModule
+    MatTooltipModule, MatProgressSpinnerModule
   ]
 })
 export class StudentsModule { }

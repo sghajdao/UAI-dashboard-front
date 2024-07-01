@@ -1,10 +1,4 @@
-<div *ngIf="!response" class="text-success position-absolute top-50 start-50 translate-middle">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-</div>
-
-<div style="padding: 10px;">
+<div *ngIf="response" style="padding: 10px;">
     <app-header [response]="response" (average)="getAverage($event)"></app-header>
     <div class="charts">
         <div class="overall">
@@ -17,6 +11,10 @@
     <app-details [data]="response" [average]="average"></app-details>
 </div>
 
-<div class="filter">
+<div *ngIf="response" class="filter">
     <button mat-mini-fab matTooltip="Filter" color="basic" (click)="openBottomSheet()"><mat-icon style="font-size: 23px;">calendar_month</mat-icon></button>
+</div>
+
+<div *ngIf="!response" class="text-success position-absolute top-50 start-50 translate-middle">
+    <mat-spinner></mat-spinner>
 </div>

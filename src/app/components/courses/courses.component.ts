@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { Subscription, mergeMap } from 'rxjs';
 import { CoursesResponse } from 'src/app/models/coursesResponse';
 import { CoursesService } from 'src/app/services/courses.service';
+import { FilterByYearComponent } from '../modals/filter-by-year/filter-by-year.component';
 
 @Component({
   selector: 'app-courses',
@@ -12,6 +14,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   constructor(
     private coursesService: CoursesService,
+    private _bottomSheet: MatBottomSheet
   ) {}
 
   data?: CoursesResponse[]
@@ -32,15 +35,26 @@ export class CoursesComponent implements OnInit, OnDestroy {
         this.err = true
     }
     if (!storage || !storageDate || this.err) {
-      const sub = this.coursesService.getCoursesData().subscribe({
+      const sub = this.coursesService.getCoursesData(2).subscribe({
         next: data => {
           this.data = data
-          localStorage.setItem("courses", JSON.stringify(data))
-          localStorage.setItem("date", JSON.stringify(new Date()))
+          // localStorage.setItem("courses", JSON.stringify(data))
+          // localStorage.setItem("date", JSON.stringify(new Date()))
         }
       })
       this.subscriptions.push(sub);
     }
+  }
+
+  openBottomSheet(): void {
+    this._bottomSheet.open(FilterByYearComponent);
+    const sub = this.coursesService.collegeYear$.pipe(mergeMap(res => this.coursesService.getCoursesData(res))).subscribe({
+      next: data => {
+        this.data = data
+        this.coursesService.collegeYearSource.next(0)
+      }
+    })
+    this.subscriptions.push(sub)
   }
 
   ngOnDestroy(): void {

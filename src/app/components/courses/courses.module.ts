@@ -11,6 +11,8 @@ import { ActivitiesFeatureComponent } from './activities-feature/activities-feat
 import { LowScoreCoursesComponent } from './low-score-courses/low-score-courses.component';
 import { LowActivityCoursesComponent } from './low-activity-courses/low-activity-courses.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     CoursesRoutingModule,
     NgApexchartsModule,
     InfiniteScrollModule,
+    MatProgressSpinnerModule, MatIconModule
   ]
 })
 export class CoursesModule { }

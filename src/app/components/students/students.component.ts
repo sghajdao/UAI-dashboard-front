@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { Subscription, take } from 'rxjs';
+import { Subscription, mergeMap, take } from 'rxjs';
 import { StudentsResponse } from 'src/app/models/studentsResponse';
 import { StudentsService } from 'src/app/services/sutdents.service';
 import { FilterByYearComponent } from '../modals/filter-by-year/filter-by-year.component';
@@ -36,11 +36,11 @@ export class StudentsComponent implements OnInit, OnDestroy {
         this.err = true
     }
     if (!storage || !storageDate || this.err) {
-      const sub = this.studentsService.getStudentsData().subscribe({
+      const sub = this.studentsService.getStudentsData(2).subscribe({
         next: resp => {
           this.response = resp
-          localStorage.setItem("students", JSON.stringify(resp))
-          localStorage.setItem("date", JSON.stringify(new Date()))
+          // localStorage.setItem("students", JSON.stringify(resp))
+          // localStorage.setItem("date", JSON.stringify(new Date()))
         }
       })
       this.subscriptions.push(sub);
@@ -53,9 +53,13 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
   openBottomSheet(): void {
     this._bottomSheet.open(FilterByYearComponent);
-    // this.studentsService.collegeYear$.subscribe(data=> {
-    //   this.response = this.response?.filter(item => item.)
-    // })
+    const sub = this.studentsService.collegeYear$.pipe(mergeMap(res => this.studentsService.getStudentsData(res))).subscribe({
+      next: data => {
+        this.response = data
+        this.studentsService.collegeYearSource.next(0)
+      }
+    })
+    this.subscriptions.push(sub)
   }
 
   ngOnDestroy(): void {

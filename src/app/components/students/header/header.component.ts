@@ -28,6 +28,10 @@ export class HeaderComponent implements OnChanges {
 
   setHeader(data: StudentsResponse[]) {
     this.scoresUnderSixty = 0
+    this.avgs = 0
+    this.avgs_count = 0
+    this.no_activities = 0
+    this.since_last_attended = 0
     for (const student of data) {
       if (student.average_grade != null && student.average_grade != -1) {
         if (student.average_grade < 60)

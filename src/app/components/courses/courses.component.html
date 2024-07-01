@@ -18,3 +18,11 @@
     <app-low-score-courses [response]="data"></app-low-score-courses>
     <app-low-activity-courses [response]="data"></app-low-activity-courses>
 </div>
+
+<div *ngIf="data" class="filter">
+    <button mat-mini-fab matTooltip="Filter" color="basic" (click)="openBottomSheet()"><mat-icon style="font-size: 23px;">calendar_month</mat-icon></button>
+</div>
+
+<div *ngIf="!data" class="text-success position-absolute top-50 start-50 translate-middle">
+    <mat-spinner></mat-spinner>
+</div>
